@@ -2,6 +2,29 @@ package main
 
 import "fmt"
 
+// 새로운 할일 추가
+func addTodo(todos []Todo, title string) []Todo {
+	// 새 ID는 현재 최대 ID + 1
+	newID := 1
+	for _, todo := range todos {
+		if todo.ID >= newID {
+			newID = todo.ID + 1
+		}
+	}
+
+	// 새 할일 생성
+	newTodo := Todo{
+		ID:        newID,
+		Title:     title,
+		Completed: false,
+	}
+
+	// 목록에 추가
+	todos = append(todos, newTodo)
+	fmt.Printf("할일이 추가되었습니다 (ID: %d)\n", newID)
+	return todos
+}
+
 // 할일 목록 출력
 func listTodos(todos []Todo) {
 	if len(todos) == 0 {
