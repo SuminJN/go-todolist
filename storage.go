@@ -22,13 +22,25 @@ func loadTodos() []Todo {
 
 	var todos []Todo
 	err = json.Unmarshal(data, &todos)
+	if err != nil {
+		fmt.Printf("JSON 파싱 오류: %v\n", err)
+		os.Exit(1)
+	}
 
 	return todos
 }
 
 // JSON 파일에 할일 목록 저장
 func saveTodos(todos []Todo) {
-	data, _ := json.MarshalIndent(todos, "", "  ")
+	data, err := json.MarshalIndent(todos, "", "  ")
+	if err != nil {
+		fmt.Printf("JSON 생성 오류: %v\n", err)
+		return
+	}
 
-	_ = os.WriteFile(todoFile, data, 0644)
+	err = os.WriteFile(todoFile, data, 0644)
+	if err != nil {
+		fmt.Printf("파일 저장 오류: %v\n", err)
+		return
+	}
 }
