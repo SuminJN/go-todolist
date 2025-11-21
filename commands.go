@@ -43,6 +43,26 @@ func listTodos(todos []Todo) {
 	fmt.Println()
 }
 
+// 할일을 완료로 표시
+func markDone(todos []Todo, id int) []Todo {
+	found := false
+	for i := range todos {
+		if todos[i].ID == id {
+			todos[i].Completed = true
+			found = true
+			break
+		}
+	}
+
+	if !found {
+		fmt.Printf("ID %d인 할일을 찾을 수 없습니다\n", id)
+		return todos
+	}
+
+	fmt.Printf("할일 %d를 완료했습니다\n", id)
+	return todos
+}
+
 // 할일 삭제
 func deleteTodo(todos []Todo, id int) []Todo {
 	found := false
