@@ -43,6 +43,28 @@ func listTodos(todos []Todo) {
 	fmt.Println()
 }
 
+// 할일 삭제
+func deleteTodo(todos []Todo, id int) []Todo {
+	found := false
+	newTodos := []Todo{}
+
+	for _, todo := range todos {
+		if todo.ID == id {
+			found = true
+			continue
+		}
+		newTodos = append(newTodos, todo)
+	}
+
+	if !found {
+		fmt.Printf("ID %d인 할일을 찾을 수 없습니다\n", id)
+		return todos
+	}
+
+	fmt.Printf("할일 %d를 삭제했습니다\n", id)
+	return newTodos
+}
+
 // 사용법 출력
 func printHelp() {
 	fmt.Println("\n=== TODO 리스트 사용법 ===")
